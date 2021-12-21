@@ -7,12 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Role {
+public class Book {
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
+    @Column(name = "book_id")
     private int id;
-	
-	@Column(name = "role")
-    private String role;
 }
