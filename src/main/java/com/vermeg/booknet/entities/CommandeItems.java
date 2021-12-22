@@ -1,4 +1,4 @@
-package com.booknet.entities;
+package com.vermeg.booknet.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
