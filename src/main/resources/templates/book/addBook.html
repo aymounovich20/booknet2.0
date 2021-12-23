@@ -44,19 +44,19 @@
 									for="title">Book Title</label>
 								<span
 									th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
-									class="textdanger">
+									class="text-danger">
 								</span>
 							</div>
 						</div>
 						
 						<div class="col-4">
 							<div class="form-floating mb-3">
-								<input type="float" class="form-control" id="price"
+								<input type="text" class="form-control" id="price"
 									placeholder="book price" th:field="*{price}"> <label
 									for="price">Book Price</label>
 								<span
 									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
-									class="textdanger">
+									class="text-danger">
 								</span>
 							</div>
 						</div>
@@ -67,7 +67,7 @@
 									for="price">Book stock</label>
 								<span
 									th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"
-									class="textdanger">
+									class="text-danger">
 								</span>
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 							<label for="description">Description</label>
 							<span
 									th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
-									class="textdanger">
+									class="text-danger">
 							</span>
 						</div>
 					</div>

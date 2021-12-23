@@ -13,11 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import com.vermeg.booknet.entities.Book;
 import com.vermeg.booknet.entities.Category;
@@ -52,14 +52,15 @@ public class BookController {
 	}
 	
 	@PostMapping("add")
-	public String addArticle(@Valid Book book, BindingResult result,
+	public String addArticle(Model model,@Valid Book book, BindingResult result,
 			@RequestParam(name = "categoryId", required = false) int p,
 			@RequestParam("files") MultipartFile[] files) {
-		
+		if (result.hasErrors()) {
+			model.addAttribute("categories",cr.findAll());
+			return "book/addBook";
+		}
 		Optional<Category> category = cr.findById(p);
-		
-		
-		/// part upload
+		///image
 		StringBuilder fileName = new StringBuilder();
 		MultipartFile file = files[0];
 		Path fileNameAndPath = Paths.get(uploadDirectory,file.getOriginalFilename());
@@ -71,9 +72,24 @@ public class BookController {
 		}
 		book.setImage(fileName.toString());
 		book.setCategory(category.get());
-		
 		br.save(book);
 		return "redirect:list";
-		// return article.getLabel() + " " +article.getPrice() + " " + p.toString();
+	}
+	
+	@GetMapping("delete/{id}")
+	public String deleteBook(@PathVariable("id") int id, Model model) {
+		Book book = br.findById(id).get();
+		br.delete(book);
+		return "redirect:../list";
+
+	}
+	
+	@GetMapping("show/{id}")
+	public String showBookDetails(@PathVariable("id") int id, Model model)
+	{
+	Book book = br.findById(id).get();
+	
+	model.addAttribute("book", book);
+	return "book/showBook";
 	}
 }

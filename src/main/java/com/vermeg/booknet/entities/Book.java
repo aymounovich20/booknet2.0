@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Book {
@@ -29,7 +31,7 @@ public class Book {
 	private String description;
 	
 	@Column(name = "price")
-	@Positive(message = "Price can't be 0 or less")
+	//@Size(message = "Price can't be 0 or less",min = 1)
 	private float price;
 	
 	@Column(name = "stock")
