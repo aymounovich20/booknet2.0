@@ -8,7 +8,7 @@
 		<version>2.6.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.booknet</groupId>
+	<groupId>com.vermeg.booknet</groupId>
 	<artifactId>booknet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>booknet</name>
