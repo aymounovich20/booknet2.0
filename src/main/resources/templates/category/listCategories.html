@@ -13,13 +13,19 @@
 	integrity="sha384-
 5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+
 </head>
 <body>
 	<div class="container-fluid p-5">
 		<div class="row">
 			<div class="col-3  list-group text-warning">
 				<div class="row my-2">
-					<a th:href="@{'/book/list'}" class="link-dark list-group-item "> Books list </a>
+					<a th:href="@{'/book/list'}" class="link-dark list-group-item ">
+						Books list </a>
 				</div>
 				<div class="row my-2">
 					<a href="" class="link-dark list-group-item active"> Categories
@@ -31,10 +37,48 @@
 			</div>
 			<div class="col-9">
 				<div class="row">
-					<div class="col-10"></div>
 					<div class="col-2">
-						<a th:href="@{'/category/add/'}" class="btn btn-warning"><i
-							class="fas fa-user ml-2"></i>Add category</a>
+						
+					</div>
+					<div class="col-8"></div>
+					<div class="col-2">
+						<button type="button" class="btn btn-warning"
+							data-bs-toggle="modal" data-bs-target="#exampleModal">
+							Add Category
+							<i class="fas fa-plus-square"></i>
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form action="#" th:action="@{/category/add}" th:object="${category}"
+											method="post" enctype="multipart/form-data">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" id="name"
+													placeholder="category name" th:field="*{name}"> <label
+													for="name">Category Name</label>
+											</div>
+											<div class="row m-4">
+												<input type="submit" class="btn btn-warning" value="Add Category" />
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="row p-4">
@@ -54,9 +98,11 @@
 									<tr th:each="category : ${categories}">
 										<td th:text="${category.id+'#'}"></td>
 										<td th:text="${category.name}"></td>
-										<td><a th:href="@{/category/edit/{id}(id=${category.id})}"
+										<td><a
+											th:href="@{/category/edit/{id}(id=${category.id})}"
 											class="btn btn-warning"><i class="fas fa-edit ml-2"></i></a></td>
-										<td><a th:href="@{/category/delete/{id}(id=${category.id})}"
+										<td><a
+											th:href="@{/category/delete/{id}(id=${category.id})}"
 											class="btn btn-warning"><i class="fas fa-trash-alt ml-2"></i></a></td>
 									</tr>
 								</tbody>

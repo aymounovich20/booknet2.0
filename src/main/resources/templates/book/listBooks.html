@@ -61,7 +61,9 @@
 									<td th:text="${book.stock}"></td>
 									<td><a th:href="@{/book/show/{id}(id=${book.id})}"
 										class="btn btn-warning"><i class="fas fa-user-show ml-2"></i>Show
-											details</a></td>
+											details
+											<i class="fas fa-eye"></i>
+											</a></td>
 
 									<td><a th:href="@{/book/edit/{id}(id=${book.id})}"
 										class="btn btn-warning"><i class="fas fa-edit ml-2"></i></a></td>
