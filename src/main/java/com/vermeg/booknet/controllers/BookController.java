@@ -92,4 +92,37 @@ public class BookController {
 	model.addAttribute("book", book);
 	return "book/showBook";
 	}
+	@GetMapping("edit/{id}")
+	public String edit(@PathVariable("id") int id,Model model) {
+		Book book = br.findById(id).get();
+		model.addAttribute("book", book);
+		model.addAttribute("categories", cr.findAll());
+		model.addAttribute("idCategory", book.getCategory().getId());
+		return"book/updateBook";
+	}
+	
+	@PostMapping("edit")
+	public String updateBook(Model model,@Valid Book book,
+			@RequestParam(name = "categoryId", required = false) int p,
+			@RequestParam("files") MultipartFile[] files) {
+
+		Optional<Category> category = cr.findById(p);
+		///image
+		if(files.length!=0) {
+			StringBuilder fileName = new StringBuilder();
+			MultipartFile file = files[0];
+			Path fileNameAndPath = Paths.get(uploadDirectory,file.getOriginalFilename());
+			fileName.append(file.getOriginalFilename());
+			try {
+			Files.write(fileNameAndPath, file.getBytes()); //upload
+			} catch (IOException e) {
+			e.printStackTrace();
+			}
+			book.setImage(fileName.toString());
+		}
+		book.setCategory(category.get());
+		br.save(book);
+		model.addAttribute("books",br.findAll());
+		return "book/listBooks";
+	}
 }
