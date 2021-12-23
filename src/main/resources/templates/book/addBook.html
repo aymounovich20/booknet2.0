@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Book</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-
+5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid p-5">
+		<div class="row">
+			<div class="col-3  list-group text-warning">
+				<div class="row my-2">
+					<a th:href="@{'/book/list/'}" class="link-warning list-group-item ">
+						Books list</a>
+				</div>
+				<div class="row my-2">
+					<a href="" class="link-warning list-group-item"> Categories
+						list </a>
+				</div>
+				<div class="row my-2">
+					<a href="" class="link-warning list-group-item"> Orders list </a>
+				</div>
+			</div>
+			<div class="col-9 p-1">
+				<div class="row">
+					<h3 class="text-center">Add a Book</h3>
+				</div>
+				<form action="#" th:action="@{/book/add}" th:object="${book}"
+					method="post" enctype="multipart/form-data">
+					<div class="row p-4">
+						<div class="col-4">
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control" id="title"
+									placeholder="book title" th:field="*{title}"> <label
+									for="title">Book Title</label>
+								<span
+									th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+									class="textdanger">
+								</span>
+							</div>
+						</div>
+						
+						<div class="col-4">
+							<div class="form-floating mb-3">
+								<input type="float" class="form-control" id="price"
+									placeholder="book price" th:field="*{price}"> <label
+									for="price">Book Price</label>
+								<span
+									th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+									class="textdanger">
+								</span>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="form-floating mb-3">
+								<input type="number" class="form-control" id="stock"
+									placeholder="book in stock" th:field="*{stock}"> <label
+									for="price">Book stock</label>
+								<span
+									th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"
+									class="textdanger">
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row px-4">
+						<div class="form-floating">
+							<textarea class="form-control" placeholder="Book Description here"
+								id="description" th:field="*{description}"></textarea>
+							<label for="description">Description</label>
+							<span
+									th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+									class="textdanger">
+							</span>
+						</div>
+					</div>
+					<div class="row p-4">
+						<div class="col-6">
+							<div class="form-group">
+								<label for="image" class="col-formlabel">Image</label>
+								<input class="form-control" type="file"
+								name="files" multiple id="image">
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group col-md-8">
+								<label for="category" class="form-label">Category</label> 
+								<select name="categoryId" class="form-control">
+									<option th:each="cat: ${categories}" th:value="${cat.id}"
+										th:text="${cat.name}" />
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row p-4">
+						<div class="col-2">
+							<input type="submit" class="btn btn-primary" value="Add Book" />
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
